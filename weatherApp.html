@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather Search</title>
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    .main {
+      height: 70px;
+      width: 100%;
+      background: pink;
+      align-items: center;
+      justify-content: space-between;
+      display: flex;
+    }
+    
+    .main .search input {
+      border-radius: 64px;
+    }
+
+    .containe {
+      height: 100vh;
+	  background:white;
+	  
+      border: 1px solid white;
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      justify-content: center;
+      padding: 25px 35px;
+    }
+
+    .flex-item {
+      margin-top: 20px;
+      width: 10%;
+      height: 20%;
+      margin: 10px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid white;
+      box-shadow: 0px 0px 5px grey;
+      border-radius: 5px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media screen and (max-width: 768px) {
+      .flex-item {
+        width: 250px;
+        height: 200px;
+      }
+    }
+	.main_weather{
+	background:white;
+	padding:10px 20px;
+	width:100%;
+	margin-bottom:50px;
+	border:2px solid white;
+	align-items:center;
+	justify-content:center;
+	display:flex;
+	flex-direction:column;
+	
+	
+	}
+	form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+  transition: width 0.3s ease;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+	table,td,th{
+	border:1px solid white;
+	border-collapse:collapse;
+	
+	
+	}
+	td,th{
+	width:150px;
+	}
+	 @media screen and (max-width: 768px) {
+    form.example input[type=text] {
+      width: 60%; /* Adjust the width for smaller screens */
+    }
+  }
+  
+  
+  @media screen and (max-width:768px){
+  td,th{
+	width:100px;
+	}
+  
+  
+  }
+
+  
+  </style>
+</head>
+<body>
+  <div class="main">
+    <div class="brand">
+      <h4 style="font-family: arial; margin-left: 10px">Weather</h4>
+    </div>
+	<form class="example"  style="margin-left:60px">
+  <input type="text" placeholder="Enter location" name="search" style="border:white;background:white;margin-right:0px;" id="city"><!--city inpur--->
+  <button  style="background:white;color:pink;border:white;margin-right:0px;" onclick="getweather(event)"><i class="fa fa-search"></i></button>
+</form>
+   
+  </div>
+  
+
+  <div class="containe">
+  <div class="main_weather">
+  
+  <div class="result">
+  <h2 style="color:black;font-family:arial;margin-bottom:-10px" id="c">country</h2>
+  
+  <img src="https://cdn2.iconfinder.com/data/icons/weather-flat-14/64/weather02-512.png" style="height:100px;width:100px"/>
+  <h1 id="main_c">-</h1>
+  </div>
+  <div class="table-responsive-sm">
+  <table class="table">
+  <tr>
+    <th>Wind <i class="fa-solid fa-wind fa-fade"></i></th>
+	<th id="wind_value">-</th>
+	
+	</tr>
+	<tr>
+    <th>Humidity <i class="fa-regular fa-droplet-degree"></i></th>
+	<th id="hum_value">-</th>
+	
+	</tr>
+	<tr>
+    <th>description</th>
+	<th id="des_value">-</th>
+	
+	</tr>
+  </table>
+</div>
+  
+  </div>
+  
+   
+  
+  
+    <div class="flex-item">
+      <div class="ima">
+        <h6 style="font-family: arial; color: black; margin-top: 5px;" id="i">INDIA</h6>
+        <i class="fa-solid fa-cloud" style="size: 50px; color: pink"></i>
+        <h4 style="color: black" id="iTemperature">-</h4>
+        <h6 style="color: black; font-family: arial"id="dind">-</h6>
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="ima">
+        <h6 style="font-family: arial; color: black; margin-top: 5px;"id="u">USA</h6>
+        <i class="fa-solid fa-cloud" style="size: 50px; color: pink"></i>
+        <h4 style="color: black" id="usaTemperature">-</h4>
+        <h6 style="color: black; font-family: arial"id="dusa">-</h6>
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="ima">
+        <h6 style="font-family: arial; color: black; margin-top: 5px;"id="l">LON</h6>
+        <i class="fa-solid fa-cloud" style="size: 50px; color: pink"></i>
+        <h4 style="color: black" id="lTemperature">-</h4>
+        <h6 style="color: black; font-family: arial"id="dlon">-</h6>
+      </div>
+    </div>
+
+    <div class="flex-item">
+      <div class="ima">
+        <h6 style="font-family: arial; color: black; margin-top: 5px;"id="j">JAP</h6>
+        <i class="fa-solid fa-cloud" style="size: 50px; color: pink"></i>
+        <h4 style="color: black" id="jTemperature">-</h4>
+        <h6 style="color: black; font-family: arial"id="djap"></h6>
+      </div>
+    </div>
+  </div>
+
+  
+  
+
+ 
+
+  <script>
+    const usaUrl = 'https://open-weather13.p.rapidapi.com/city/New York';
+    const indiaUrl = 'https://open-weather13.p.rapidapi.com/city/delhi';
+    const londonUrl = 'https://open-weather13.p.rapidapi.com/city/london';
+    const japanUrl = 'https://open-weather13.p.rapidapi.com/city/tokyo';
+    const headers = {
+      'X-RapidAPI-Key': '25cbdc25eemsh132859f8efbd923p16a9ecjsn8334f43ee4d7',
+      'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
+    };
+
+    async function fetchWeather(url, tempElementId, descElementId, countryElementId, cityElementId) {
+      try {
+        const response = await fetch(url, { method: 'GET', headers });
+        const resultObject = await response.json();
+        const f = resultObject.main.temp;
+        const tCel = Math.round((f - 32) * 5 / 9);
+        const description = resultObject.weather[0].description;
+        const countryName = resultObject.sys.country;
+        const cityName = resultObject.name; // Added line for city name
+        document.getElementById(tempElementId).textContent = `${tCel}°C`;
+        document.getElementById(descElementId).textContent = description;
+        document.getElementById(countryElementId).textContent = countryName;
+        document.getElementById(cityElementId).textContent = cityName;
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+    fetchWeather(usaUrl, 'usaTemperature', 'dusa');
+    fetchWeather(indiaUrl, 'iTemperature', 'dind');
+    fetchWeather(londonUrl, 'lTemperature', 'dlon');
+    fetchWeather(japanUrl, 'jTemperature', 'djap');
+	
+	
+	async function getweather(event) {
+  // Prevent the default form submission behavior
+  event.preventDefault();
+
+  let inputV = document.getElementById("city");
+  let cityV = inputV.value;
+  document.getElementById("c").textContent = cityV;
+  const url = `https://open-weather13.p.rapidapi.com/city/${cityV}`;
+  const options = {
+    method: 'GET',
+    headers: {
+      'X-RapidAPI-Key': '25cbdc25eemsh132859f8efbd923p16a9ecjsn8334f43ee4d7',
+      'X-RapidAPI-Host': 'open-weather13.p.rapidapi.com'
+    }
+  };
+
+  try {
+    const response = await fetch(url, options);
+    const resultObject = await response.json();
+	console.log(resultObject)
+	
+
+    // Updated lines to change humidity, wind, and description values
+    document.getElementById('wind_value').textContent = `${resultObject.wind.speed} km/h`;
+    document.getElementById('hum_value').textContent = `${resultObject.main.humidity}%`;
+    document.getElementById('des_value').textContent = resultObject.weather[0].description;
+	var wea= resultObject.main.temp;
+	 var mainc = Math.round((wea - 32) * 5 / 9);
+	 document.getElementById('main_c').textContent = `${mainc}°C`
+	
+	
+	
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+  </script>
+</body>
+</html>
